@@ -125,8 +125,8 @@ export default function BookingForm() {
               className="w-full accent-amber-500 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer"
             />
             <div className="flex justify-between text-xs text-gray-500 mt-2 font-mono">
-               <span>Min: 5</span>
-               <span>Max: 10</span>
+               <span>{t.booking.min}: 5</span>
+               <span>{t.booking.max}: 10</span>
             </div>
           </div>
 
@@ -146,9 +146,9 @@ export default function BookingForm() {
                 onClick={(e) => e.stopPropagation()} 
              />
              <div>
-                <label className="text-sm font-bold text-white cursor-pointer">I am an experienced Captain</label>
+                <label className="text-sm font-bold text-white cursor-pointer">{t.booking.captainTitle}</label>
                 <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">
-                  Rent bareboat ($4k-$6k/week). Uncheck to include Captain & Full Board ($400/day).
+                  {t.booking.captainDesc}
                 </p>
              </div>
           </div>
@@ -178,11 +178,11 @@ export default function BookingForm() {
       {/* 4. Price Preview */}
       {priceDisplay && (
         <div className="mb-6 p-4 bg-emerald-900/20 border border-emerald-500/30 rounded-lg flex justify-between items-center">
-          <span className="text-emerald-400 text-sm font-medium">Estimated Total</span>
+          <span className="text-emerald-400 text-sm font-medium">{t.booking.estimatedTotal}</span>
           <div className="text-right">
             <span className="text-white font-bold text-lg block">{priceDisplay}</span>
-            {mode === 'expedition' && !isExperiencedCaptain && <span className="text-[10px] text-gray-400 block mt-1">Full board for {guests} guests</span>}
-            {mode === 'expedition' && isExperiencedCaptain && <span className="text-[10px] text-gray-400 block mt-1">Bareboat base rate</span>}
+            {mode === 'expedition' && !isExperiencedCaptain && <span className="text-[10px] text-gray-400 block mt-1">{t.booking.fullBoard} {guests} {t.booking.guests}</span>}
+            {mode === 'expedition' && isExperiencedCaptain && <span className="text-[10px] text-gray-400 block mt-1">{t.booking.bareboatRate}</span>}
           </div>
         </div>
       )}
@@ -191,14 +191,14 @@ export default function BookingForm() {
       <form action={handleSubmit} className="space-y-4">
         {mode === 'charter' && (
           <select name="timeSlot" className={inputClasses}>
-            <option value="09:00">Morning Cruise (09:00 - 13:00)</option>
-            <option value="14:00">Afternoon Cruise (14:00 - 18:00)</option>
-            <option value="19:00">Evening Champagne (19:00 - 23:00)</option>
+            <option value="09:00">{t.booking.timeSlots.morning}</option>
+            <option value="14:00">{t.booking.timeSlots.afternoon}</option>
+            <option value="19:00">{t.booking.timeSlots.evening}</option>
           </select>
         )}
         
-        <input name="name" type="text" placeholder="Full Name" required className={inputClasses} />
-        <input name="email" type="email" placeholder="Corporate Email" required className={inputClasses} />
+        <input name="name" type="text" placeholder={t.booking.placeholders.name}   required className={inputClasses} />
+        <input name="email" type="email" placeholder={t.booking.placeholders.email} required className={inputClasses} />
         
         {/* THE LEGAL CHECKBOX */}
         <div className="flex items-start gap-3 p-3 bg-slate-800/50 rounded-lg border border-white/5">
@@ -210,15 +210,15 @@ export default function BookingForm() {
             className="mt-1 w-4 h-4 rounded border-gray-600 bg-slate-700 accent-amber-500 cursor-pointer"
           />
           <label htmlFor="terms" className="text-xs text-gray-300 leading-snug select-none cursor-pointer">
-            I agree to the{' '}
+            {t.booking.terms.agree}{' '}
             <button 
               type="button" 
               onClick={(e) => { e.preventDefault(); setShowTerms(true); }}
               className="text-white underline hover:text-amber-400 font-bold transition"
             >
-              Cancellation Policy & Terms
+              {t.booking.terms.link}
             </button>
-            . I understand that the Captain has final authority on safety.
+            {t.booking.terms.safety}
           </label>
         </div>
 
